@@ -1,30 +1,34 @@
-<!-- verify-activation-code.component.html -->
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
-      <h3 class="text-center text-primary mb-4">Verify Activation Code</h3>
-      
-      <!-- Display a message with the email address -->
-      <div *ngIf="email" class="alert alert-info text-center">
-        A code has been sent to <strong>{{ email }}</strong>. Please check your inbox.
+<div class="container height-100 d-flex justify-content-center align-items-center">
+  <div class="position-relative">
+    <div class="card p-2 text-center">
+      <h6>Please enter the activation code <br> to verify your account</h6>
+      <div> 
+        <span>A code has been sent to</span> 
+        <small id="maskedNumber">{{ email }}</small> 
       </div>
-      
-      <form (ngSubmit)="onSubmit()" #otpForm="ngForm">
-        <!-- Hidden Inputs for form data -->
-        <input type="hidden" name="email" [(ngModel)]="email" />
-        <input type="hidden" name="name" [(ngModel)]="name" />
-        <input type="hidden" name="dob" [(ngModel)]="dob" />
-        <input type="hidden" name="mobileNumber" [(ngModel)]="mobileNumber" />
-        <input type="hidden" name="accountType" [(ngModel)]="accountType" />
-  
-        <div class="mb-3">
-          <label for="otp" class="form-label">Enter OTP</label>
-          <input type="text" id="otp" name="otp" class="form-control" [(ngModel)]="otp" required />
+
+      <form [formGroup]="otpForm" (ngSubmit)="verifyEmail()">
+        <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+          <input formControlName="digit1" class="m-2 text-center form-control rounded" type="text" maxlength="1" 
+            #digit1 (input)="handleFocus($event, digit2)" (keydown)="handleBackspace($event, null)" />
+          <input formControlName="digit2" class="m-2 text-center form-control rounded" type="text" maxlength="1"
+            #digit2 (input)="handleFocus($event, digit3)" (keydown)="handleBackspace($event, digit1)" />
+          <input formControlName="digit3" class="m-2 text-center form-control rounded" type="text" maxlength="1"
+            #digit3 (input)="handleFocus($event, digit4)" (keydown)="handleBackspace($event, digit2)" />
+          <input formControlName="digit4" class="m-2 text-center form-control rounded" type="text" maxlength="1"
+            #digit4 (input)="handleFocus($event, digit5)" (keydown)="handleBackspace($event, digit3)" />
+          <input formControlName="digit5" class="m-2 text-center form-control rounded" type="text" maxlength="1"
+            #digit5 (input)="handleFocus($event, digit6)" (keydown)="handleBackspace($event, digit4)" />
+          <input formControlName="digit6" class="m-2 text-center form-control rounded" type="text" maxlength="1"
+            #digit6 (keydown)="handleBackspace($event, digit5)" />
         </div>
-        
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Verify</button>
+
+        <div class="mt-4">
+          <button id="validateBtn" class="btn btn-danger px-4 validate" type="submit" [disabled]="otpForm.invalid">
+            Validate
+          </button>
         </div>
       </form>
     </div>
   </div>
-  
+</div>

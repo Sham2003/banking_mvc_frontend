@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
+
   private baseUrl = 'http://localhost:8080';
 
   private userMail = "";
@@ -57,6 +58,14 @@ export class UserService {
 
   applyLoan(payload:any){
     return this.http.post(`${this.baseUrl}/submitLoanApplication`,payload,{headers:UserService.headers});
+  }
+
+  verifyRegistrationOtp(email: string, otp: string): Observable<any> {
+    const params = new HttpParams()
+      .set('email', email)
+      .set('otp', otp);
+      
+    return this.http.post<any>(`${this.baseUrl}/verify-activation-code`, {}, { params });
   }
 }
 

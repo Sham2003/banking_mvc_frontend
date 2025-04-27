@@ -46,9 +46,9 @@ export class RegisterComponent {
     this.userService.register(this.registerForm.value).subscribe(
       {
         next:(value) => {
-          if(value.accountNumber){
+          if(value.email){
             this.snackBar.dismiss();
-            this.router.navigateByUrl('/success',{state:{accNo:value.accountNumber}})
+            this.router.navigate(['/verifyAccount'], { queryParams: { email: value.email } });
           }
         },
         error: (err) => {

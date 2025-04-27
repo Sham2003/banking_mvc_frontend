@@ -19,7 +19,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'success', component: AccountSuccessComponent },
     { path: 'transaction-history', component: TransactionHistoryComponent },
-    { path: 'verify-activation-code', component: VerifyActivationCodeComponent },
+    { path: 'verifyAccount', component: VerifyActivationCodeComponent },
     { path: 'bank-transfer', component: BankTransferComponent },
     { path: 'depo-withdraw', component: DepositWithdrawComponent },
     { path: 'view-account', component: ViewAccountComponent },
