@@ -1,0 +1,30 @@
+<!-- verify-activation-code.component.html -->
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
+      <h3 class="text-center text-primary mb-4">Verify Activation Code</h3>
+      
+      <!-- Display a message with the email address -->
+      <div *ngIf="email" class="alert alert-info text-center">
+        A code has been sent to <strong>{{ email }}</strong>. Please check your inbox.
+      </div>
+      
+      <form (ngSubmit)="onSubmit()" #otpForm="ngForm">
+        <!-- Hidden Inputs for form data -->
+        <input type="hidden" name="email" [(ngModel)]="email" />
+        <input type="hidden" name="name" [(ngModel)]="name" />
+        <input type="hidden" name="dob" [(ngModel)]="dob" />
+        <input type="hidden" name="mobileNumber" [(ngModel)]="mobileNumber" />
+        <input type="hidden" name="accountType" [(ngModel)]="accountType" />
+  
+        <div class="mb-3">
+          <label for="otp" class="form-label">Enter OTP</label>
+          <input type="text" id="otp" name="otp" class="form-control" [(ngModel)]="otp" required />
+        </div>
+        
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Verify</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

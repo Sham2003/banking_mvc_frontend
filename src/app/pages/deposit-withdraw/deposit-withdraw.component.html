@@ -1,0 +1,37 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+    <div class="text-center">
+      <h2 class="mb-4 text-primary">Transaction</h2>
+    </div>
+  
+    <form (ngSubmit)="onSubmit()" class="bg-white p-4 rounded shadow mx-auto" style="max-width: 400px;">
+      <div class="mb-3">
+        <label for="accountNumber" class="form-label fw-semibold">Account Number:</label>
+        <input type="text" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" name="accountNumber" required>
+      </div>
+  
+      <div class="mb-3">
+        <label for="transactionType" class="form-label fw-semibold">Transaction Type:</label>
+        <select id="transactionType" class="form-select" [(ngModel)]="transactionType" name="transactionType" required>
+          <option value="" disabled selected>Select</option>
+          <option value="deposit">Deposit</option>
+          <option value="withdraw">Withdraw</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label for="amount" class="form-label fw-semibold">Amount:</label>
+        <input type="number" id="amount" class="form-control" [(ngModel)]="amount" name="amount" step="0.01" min="1" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2">
+        <i class="fas fa-check-circle"></i> Submit
+      </button>
+  
+      <!-- Message Display -->
+      <div class="mt-4">
+        <p *ngIf="message" class="text-success fw-bold">{{ message }}</p>
+        <p *ngIf="error" class="text-danger fw-bold">{{ error }}</p>
+      </div>
+    </form>
+  </div>
+  

@@ -1,0 +1,77 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #e0f0ff);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #083867;
+    margin-bottom: 40px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.button-row div {
+    display: inline-block;
+}
+
+button {
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: linear-gradient(to right, #00c6ff, #007bff);
+    transform: scale(1.02);
+}
+
+button i {
+    font-size: 20px;
+}
+
+.button-row div img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Blue Button Styles */
+.view-account, .transaction-history, .bank-transfer, .depo-withdraw {
+    background-color: #3498db;
+    border: 1px solid #0056b3;
+}
+
+.view-account:hover, .transaction-history:hover, .bank-transfer:hover, .depo-withdraw:hover {
+    background-color: #0056b3;
+}
+
+/* Container for the entire page */
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}

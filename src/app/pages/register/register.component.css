@@ -1,0 +1,58 @@
+h2 {
+    color:black;
+    margin-bottom: 30px;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px 60px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 80, 158, 0.2);
+    width: 600px;
+    margin: 60px auto;
+}
+
+form .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+label {
+    flex: 0 0 160px;
+    font-weight: bold;
+    color: black;
+}
+
+input, select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+button {
+    margin-top: 25px;
+    padding: 12px 24px;
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+}
+
+button:hover {
+    background: linear-gradient(to right, #00c6ff, #007bff);
+    transform: scale(1.02);
+}
+
+.message {
+    font-size: 16px;
+    color: red;
+    margin-top: 15px;
+    text-align: center;
+}

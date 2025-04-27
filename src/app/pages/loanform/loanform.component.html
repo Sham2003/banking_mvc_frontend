@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">
+      <i class="bi bi-cash-coin me-2 text-success"></i>Loan Application Form
+    </h1>
+  
+    <form [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-lg bg-light animate__animated animate__fadeIn">
+      <div class="row g-3">
+        <div class="col-md-6" *ngFor="let field of formFields">
+          <label [for]="field.id" class="form-label fw-semibold">
+            <i [class]="field.icon + ' me-2'"></i>{{ field.label }}
+          </label>
+          <input [type]="field.type"
+                 class="form-control"
+                 [id]="field.id"
+                 [formControlName]="field.id"
+                 [placeholder]="field.placeholder" />
+          <div *ngIf="loanForm.get(field.id)?.invalid && loanForm.get(field.id)?.touched" class="text-danger mt-1 small">
+            Invalid {{ field.label.toLowerCase() }}
+          </div>
+        </div>
+      </div>
+  
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success px-5 py-2 shadow-sm"> <!--[disabled]="loanForm.invalid" -->
+          <i class="bi bi-send-check me-2"></i>Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  

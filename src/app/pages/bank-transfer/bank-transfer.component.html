@@ -1,0 +1,49 @@
+<div class="container mt-5 animate__animated animate__fadeInDown">
+    <h2 class="text-center mb-4 text-primary">
+      <i class="bi bi-bank2 me-2"></i>Bank Transfer
+    </h2>
+  
+    <form [formGroup]="transferForm" (ngSubmit)="onSubmit()" class="p-4 bg-white rounded shadow">
+      <div class="mb-3">
+        <label for="senderAccountNumber" class="form-label fw-semibold">
+          <i class="bi bi-person-badge me-2"></i>Sender Account Number
+        </label>
+        <input type="text" id="senderAccountNumber" class="form-control" formControlName="senderAccountNumber">
+        <div class="text-danger small" *ngIf="transferForm.get('senderAccountNumber')?.invalid && transferForm.get('senderAccountNumber')?.touched">
+          Valid sender account number is required.
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="receiverAccountNumber" class="form-label fw-semibold">
+          <i class="bi bi-person-fill-check me-2"></i>Receiver Account Number
+        </label>
+        <input type="text" id="receiverAccountNumber" class="form-control" formControlName="receiverAccountNumber">
+        <div class="text-danger small" *ngIf="transferForm.get('receiverAccountNumber')?.invalid && transferForm.get('receiverAccountNumber')?.touched">
+          Valid receiver account number is required.
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="amount" class="form-label fw-semibold">
+          <i class="bi bi-currency-rupee me-2"></i>Amount
+        </label>
+        <input type="number" id="amount" class="form-control" formControlName="amount">
+        <div class="text-danger small" *ngIf="transferForm.get('amount')?.invalid && transferForm.get('amount')?.touched">
+          Enter a valid amount greater than 0.
+        </div>
+      </div>
+  
+      <div class="text-center">
+        <button class="btn btn-primary px-5 py-2" type="submit" [disabled]="transferForm.invalid">
+          <i class="bi bi-send-arrow-up me-2"></i>Transfer
+        </button>
+      </div>
+    </form>
+  
+    <div class="text-center mt-4 animate__animated animate__fadeInUp">
+      <p class="text-success fw-bold" *ngIf="message">{{ message }}</p>
+      <p class="text-info" *ngIf="senderBalance">{{ senderBalance }}</p>
+    </div>
+  </div>
+  

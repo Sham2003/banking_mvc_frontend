@@ -1,0 +1,53 @@
+<!-- loan-result.component.html -->
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Loan Application Result</h1>
+    
+    <div class="card shadow-sm p-4 mb-4">
+      <h2 class="card-title text-primary">Loan ID: {{ loanData.loanId }}</h2>
+      <h3 class="card-subtitle text-secondary">Prediction: {{ prediction }}</h3>
+    </div>
+  
+    <h4 class="mb-3">Loan Details:</h4>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Number of Dependents:</strong> {{ loanData.noOfDependents }}
+      </li>
+      <li class="list-group-item">
+        <strong>Education:</strong> {{ loanData.education }}
+      </li>
+      <li class="list-group-item">
+        <strong>Self Employed:</strong> {{ loanData.selfEmployed }}
+      </li>
+      <li class="list-group-item">
+        <strong>Income Per Annum:</strong> {{ loanData.incomeAnnum | currency }}
+      </li>
+      <li class="list-group-item">
+        <strong>Loan Amount:</strong> {{ loanData.loanAmount | currency }}
+      </li>
+      <li class="list-group-item">
+        <strong>Loan Term:</strong> {{ loanData.loanTerm }} years
+      </li>
+      <li class="list-group-item">
+        <strong>CIBIL Score:</strong> {{ loanData.cibilScore }}
+      </li>
+      <li class="list-group-item">
+        <strong>Residential Assets Value:</strong> {{ loanData.residentialAssetsValue | currency }}
+      </li>
+      <li class="list-group-item">
+        <strong>Commercial Assets Value:</strong> {{ loanData.commercialAssetsValue | currency }}
+      </li>
+      <li class="list-group-item">
+        <strong>Luxury Assets Value:</strong> {{ loanData.luxuryAssetsValue | currency }}
+      </li>
+      <li class="list-group-item">
+        <strong>Bank Asset Value:</strong> {{ loanData.bankAssetValue | currency }}
+      </li>
+    </ul>
+  
+    <div class="mt-4 text-center">
+      <a href="/dashboard" class="btn btn-primary">
+        <i class="bi bi-arrow-left-circle"></i> Go back to the dashboard
+      </a>
+    </div>
+  </div>
+  

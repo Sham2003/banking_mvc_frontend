@@ -1,0 +1,39 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+    <h1 class="text-center text-primary mb-5">Welcome to Your Banking Dashboard</h1>
+  
+    <div class="dashboard-content d-flex flex-column align-items-center gap-4">
+      <!-- First Row -->
+      <div class="d-flex gap-4 flex-wrap justify-content-center">
+        <button class="btn btn-primary d-flex align-items-center gap-2 px-4 py-3 shadow"
+                (click)="viewAccount()">
+          <i class="fas fa-user"></i> View Account
+        </button>
+  
+        <button class="btn btn-primary d-flex align-items-center gap-2 px-4 py-3 shadow"
+                (click)="transactionHistory()">
+          <i class="fas fa-history"></i> Transaction History
+        </button>
+      </div>
+  
+      <!-- Second Row -->
+      <div class="d-flex gap-4 flex-wrap justify-content-center">
+        <button class="btn btn-primary d-flex align-items-center gap-2 px-4 py-3 shadow"
+                (click)="bankTransfer()">
+          <i class="fas fa-exchange-alt"></i> Bank Transfer
+        </button>
+  
+        <button class="btn btn-primary d-flex align-items-center gap-2 px-4 py-3 shadow"
+                (click)="depoWithdraw()">
+          <i class="fas fa-wallet"></i> Add to Wallet (ATM)
+        </button>
+      </div>
+      
+      <div class="d-flex gap-4 flex-wrap justify-content-center">
+        <button class="btn btn-success d-flex align-items-center gap-2 px-4 py-3 shadow"
+                (click)="loanApply()">
+          <i class="fas fa-file-signature"></i> Apply for Loan
+        </button>
+      </div>
+    </div>
+  </div>
+  

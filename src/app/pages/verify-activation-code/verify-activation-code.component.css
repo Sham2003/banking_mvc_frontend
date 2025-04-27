@@ -1,0 +1,43 @@
+/* verify-activation-code.component.css */
+.card {
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+  }
+  
+  h3 {
+    color: #007bff;
+    font-size: 1.5rem;
+  }
+  
+  form {
+    padding: 20px;
+  }
+  
+  input[type="text"] {
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background: linear-gradient(to right, #00c6ff, #007bff);
+    transform: scale(1.05);
+  }
+  
+  .alert {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  

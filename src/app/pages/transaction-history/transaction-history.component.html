@@ -1,0 +1,46 @@
+<!-- transaction-history.component.html -->
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 900px; width: 100%;">
+      <h2 class="text-center text-primary mb-4">Transaction History</h2>
+      
+      <form (ngSubmit)="onSubmit()" class="mb-4">
+        <div class="input-group">
+          <label for="accountNumber" class="form-label">Enter Account Number:</label>
+          <input type="text" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" name="accountNumber" required />
+          <button type="submit" class="btn btn-primary ms-2">View History</button>
+        </div>
+      </form>
+  
+      <div *ngIf="this.transactions.length > 0; else noTransactions">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Account</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tx of transactions">
+              <td>{{ tx.id }}</td>
+              <td>{{ tx.accountNumber }}</td>
+              <td>{{ tx.type }}</td>
+              <td>{{ tx.amount }}</td>
+              <td>{{ tx.description }}</td>
+              <td>{{ tx.timestamp | date:'yyyy-MM-dd HH:mm' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <ng-template #noTransactions>
+        <div class="alert alert-warning text-center">
+          No transactions found for this account.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  

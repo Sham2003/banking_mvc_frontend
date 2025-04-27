@@ -1,0 +1,20 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter Email" formControlName="email" required>
+            <br>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter Password" required formControlName="password">
+            <br>
+            <button type="submit">Login</button>
+        </form>
+        <p th:text="${message}"></p>
+        <br>
+        <div class="extra-links">
+            <a href="/forgot-password">Forgot Password?</a>
+            <p>Don't have an account? <a href="/register">Create Account</a></p>
+        </div>
+    </div>
+</div>
