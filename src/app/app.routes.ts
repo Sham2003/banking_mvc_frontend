@@ -4,7 +4,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AccountSuccessComponent } from './pages/account-success/account-success.component';
 import { LoanResultComponent } from './pages/loan-result/loan-result.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { TransactionHistoryComponent } from './pages/transaction-history/transaction-history.component';
 import { VerifyActivationCodeComponent } from './pages/verify-activation-code/verify-activation-code.component';
 import { ViewAccountComponent } from './pages/view-account/view-account.component';
@@ -12,6 +11,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BankTransferComponent } from './pages/bank-transfer/bank-transfer.component';
 import { DepositWithdrawComponent } from './pages/deposit-withdraw/deposit-withdraw.component';
 import { LoanformComponent } from './pages/loanform/loanform.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -25,7 +25,7 @@ export const routes: Routes = [
     { path: 'view-account', component: ViewAccountComponent },
     { path: 'dashboard',component: DashboardComponent},
     { path: 'loan-result', component: LoanResultComponent },
-    { path: 'reset-password', component: ResetPasswordComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'loan-apply', component: LoanformComponent },
     { path: 'loan-status', component: LoanResultComponent },
 

@@ -7,12 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
+
   private baseUrl = 'http://localhost:8080';
 
   private userMail = "";
   constructor(@Inject(HttpClient) private http: HttpClient) {}
-  static headers = new HttpHeaders({
+  static jsonheaders = new HttpHeaders({
     'Accept': 'application/json'
+  });
+  static textheaders = new HttpHeaders({
+    'Accept': 'text/plain'
   });
 
   setToken(token: string){
@@ -25,7 +29,7 @@ export class UserService {
 
   // 🔐 Register a new user
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/create-account`,userData,{headers:UserService.headers});
+    return this.http.post(`${this.baseUrl}/create-account`,userData,{headers:UserService.jsonheaders});
   }
 
   // 🔓 Login user
@@ -33,10 +37,6 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/login`, credentials);
   }
 
-  // 🔁 Reset password
-  resetPassword(payload: { email: string; newPassword: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/reset-pass`, payload);
-  }
 
   viewAccount(token : string){
     const params = new HttpParams().set('email',token);
@@ -49,15 +49,15 @@ export class UserService {
   }
 
   initiateTransfer(payload:any){
-    return this.http.post(`${this.baseUrl}/bank-transfer`,payload,{headers:UserService.headers});
+    return this.http.post(`${this.baseUrl}/bank-transfer`,payload,{headers:UserService.jsonheaders});
   }
 
   depoWithdraw(payload:any){
-    return this.http.post(`${this.baseUrl}/depo-withdraw`,payload,{headers:UserService.headers});
+    return this.http.post(`${this.baseUrl}/depo-withdraw`,payload,{headers:UserService.jsonheaders});
   }
 
   applyLoan(payload:any){
-    return this.http.post(`${this.baseUrl}/submitLoanApplication`,payload,{headers:UserService.headers});
+    return this.http.post(`${this.baseUrl}/submitLoanApplication`,payload,{headers:UserService.jsonheaders});
   }
 
   verifyRegistrationOtp(email: string, otp: string): Observable<any> {
@@ -67,5 +67,17 @@ export class UserService {
       
     return this.http.post<any>(`${this.baseUrl}/verify-activation-code`, {}, { params });
   }
+
+  sendForgotOtp(email: string){
+    const params = new HttpParams()
+      .set('email', email);
+    return this.http.post<string>(`${this.baseUrl}/initiatePasswordReset`, {}, { params ,responseType:'text' as 'json'});
+  }
+
+  // 🔁 Reset password
+  resetPassword(payload: { email: string; reqId:string; otp:string ;newPassword: string ; confirmPassword: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-password`, payload,{headers:UserService.jsonheaders});
+  }
+
 }
 
