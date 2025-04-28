@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createAccount(){
-    this.router.navigate(['/create-account']);
+    this.router.navigate(['/create-another-account']);
   }
   viewAccount() {
     this.router.navigate(['/view-account']);

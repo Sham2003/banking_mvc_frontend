@@ -14,6 +14,7 @@ import { LoanformComponent } from './pages/loanform/loanform.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MyLoansComponent } from './pages/my-loans/my-loans.component';
 import { ChangeTransactionPwdComponent } from './pages/change-transaction-pwd/change-transaction-pwd.component';
+import { CreateAnotherAccountComponent } from './pages/another-act/another-act.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'success', component: AccountSuccessComponent },
     { path: 'transaction-history', component: TransactionHistoryComponent },
+    { path: 'create-another-account', component: CreateAnotherAccountComponent },
     { path: 'change-transaction-pwd', component: ChangeTransactionPwdComponent },
     { path: 'verifyAccount', component: VerifyActivationCodeComponent },
     { path: 'bank-transfer', component: BankTransferComponent },

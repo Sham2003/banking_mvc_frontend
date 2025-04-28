@@ -12,8 +12,8 @@
         </p>
         
         <div class="text-center">
-          <a href="/login" class="btn btn-primary btn-lg">
-            <i class="bi bi-box-arrow-in-right"></i> Go to Login
+          <a (click)="goBack()" class="btn btn-primary btn-lg">
+            <i class="bi bi-box-arrow-in-right"></i> Go to {{ fromComponent == 'create-another-act'? 'Dashboard': 'Login'}}
           </a>
         </div>
       </div>

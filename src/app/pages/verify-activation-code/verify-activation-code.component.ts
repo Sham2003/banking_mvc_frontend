@@ -66,7 +66,7 @@ export class VerifyActivationCodeComponent implements OnInit {
 
     this.userService.verifyRegistrationOtp(this.email,this.otpReqId, otp).subscribe({
       next: (res) => {
-        this.router.navigateByUrl('/success',{state:{accNo:res.accountNumber}})
+        this.router.navigateByUrl('/success',{state:{accNo:res.accountNumber,from:'register'}})
       },
       error: (err) => {
         console.error('Verification failed', err);

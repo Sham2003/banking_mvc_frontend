@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AccountSuccessComponent implements OnInit{
   accountNumber:any
+  fromComponent: any;
 
   constructor(private router: Router){
   }
@@ -16,6 +17,15 @@ export class AccountSuccessComponent implements OnInit{
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras.state ?? window.history.state;
     this.accountNumber = state?.accNo;
-    console.log(nav);
+    this.fromComponent = state?.from || '';
+    console.log('Navigated from:', this.fromComponent);
+  }
+
+  goBack(){
+    if (this.fromComponent === 'create-another-act') {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate(['/login']); // fallback
+    }
   }
 }

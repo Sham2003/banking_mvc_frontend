@@ -32,6 +32,13 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/create-account`,userData,{headers:UserService.jsonheaders});
   }
 
+  createAnotherAccount(accountType : string): Observable<any> {
+    const params = new HttpParams()
+        .set('accountType',accountType)
+        .set('email',this.getToken());
+    return this.http.post(`${this.baseUrl}/create-another-account`,{},{params,headers:UserService.jsonheaders});
+  }
+
   // 🔓 Login user
   login(credentials: { email: string | null; password: string | null}): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, credentials);

@@ -1,23 +1,44 @@
 <div class="container py-5 d-flex justify-content-center">
-    <div class="card shadow-lg p-4 w-100" style="max-width: 700px;">
-      <h1 class="text-center text-primary mb-4">Account Details</h1>
-  
-      <div *ngIf="accounts[0]">
-        <p><strong>Account Number:</strong> {{ accounts[0].accountNumber }}</p>
-        <p><strong>Name:</strong> {{ accounts[0].name }}</p>
-        <p><strong>Email:</strong> {{ accounts[0].email }}</p>
-        <p><strong>Mobile:</strong> {{ accounts[0].mobileNumber }}</p>
-        <p><strong>DOB:</strong> {{ accounts[0].dob | date:'dd-MM-yyyy' }}</p>
-        <p><strong>Account Type:</strong> {{ accounts[0].accountType }}</p>
-        <p><strong>Created On:</strong> {{ accounts[0].createdOn | date:'dd-MM-yyyy' }}</p>
-        <p><strong>Balance:</strong> ₹{{ accounts[0].balance | number:'1.2-2' }}</p>
+  <div class="position-relative w-100" style="max-width: 500px;">
+
+    <div id="accountCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+      <div class="carousel-inner">
+
+        <!-- Credit Card Style Slide -->
+        <div class="carousel-item" *ngFor="let account of accounts; let i = index" [class.active]="i === 0">
+          <div class="card shadow-lg p-4 text-white" style="background: linear-gradient(135deg, #4e54c8, #8f94fb); border-radius: 20px;">
+            <div class="card-body animate__animated animate__fadeInRight">
+              <h5 class="card-title mb-3">Account Number: {{ account.accountNumber }}</h5>
+              <h6 class="card-subtitle mb-2">{{ account.name }}</h6>
+              <p class="mb-1"><strong>Email:</strong> {{ account.email }}</p>
+              <p class="mb-1"><strong>Mobile:</strong> {{ account.mobileNumber }}</p>
+              <p class="mb-1"><strong>DOB:</strong> {{ account.dob | date:'dd-MM-yyyy' }}</p>
+              <p class="mb-1"><strong>Type:</strong> {{ account.accountType }}</p>
+              <p class="mb-1"><strong>Created:</strong> {{ account.createdOn | date:'dd-MM-yyyy' }}</p>
+              <h5 class="mt-3">₹{{ account.balance | number:'1.2-2' }}</h5>
+            </div>
+          </div>
+        </div>
+
       </div>
-  
-      <div class="text-center mt-4">
-        <button class="btn btn-primary" (click)="goBack()">
-          <i class="bi bi-arrow-left"></i> Back to Dashboard
-        </button>
-      </div>
+      
+
+      <!-- Prev & Next Buttons positioned on left and right -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#accountCarousel" data-bs-slide="prev" style="width: 5%;">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#accountCarousel" data-bs-slide="next" style="width: 5%;">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+
     </div>
+
+    <!-- Back to Dashboard -->
+    <div class="text-center mt-4">
+      <button class="btn btn-primary" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </button>
+    </div>
+
   </div>
-  
+</div>
