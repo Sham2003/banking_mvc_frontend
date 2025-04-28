@@ -6,7 +6,10 @@
     <form (ngSubmit)="onSubmit()" class="bg-white p-4 rounded shadow mx-auto" style="max-width: 400px;">
       <div class="mb-3">
         <label for="accountNumber" class="form-label fw-semibold">Account Number:</label>
-        <input type="text" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" name="accountNumber" required>
+        <select (change)="printChange()" class="form-select" id="accountNumber" class="form-control"  [(ngModel)]="accountNumber" [ngModelOptions]="{standalone: true}">
+          <option value="">Select</option>
+          <option *ngFor="let accNo of this.myAccountNumbers" [value]="accNo">{{accNo}}</option>
+      </select>
       </div>
   
       <div class="mb-3">
