@@ -48,7 +48,7 @@ export class RegisterComponent {
         next:(value) => {
           if(value.email){
             this.snackBar.dismiss();
-            this.router.navigate(['/verifyAccount'], { queryParams: { email: value.email } });
+            this.router.navigate(['/verifyAccount'], { queryParams: { email: value.email, otpReqId: value.otpReqId } });
           }
         },
         error: (err) => {

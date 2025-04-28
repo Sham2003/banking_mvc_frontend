@@ -21,6 +21,9 @@ export class DashboardComponent implements OnInit {
     console.log("Current email "+this.userService.getToken());
   }
 
+  createAccount(){
+    this.router.navigate(['/create-account']);
+  }
   viewAccount() {
     this.router.navigate(['/view-account']);
   }

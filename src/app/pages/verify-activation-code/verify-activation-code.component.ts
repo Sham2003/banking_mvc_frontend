@@ -17,6 +17,7 @@ export class VerifyActivationCodeComponent implements OnInit {
   email: string = '';
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
+  otpReqId: string = '';
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -35,6 +36,7 @@ export class VerifyActivationCodeComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.email = params['email'] || '';
+      this.otpReqId = params['otpReqId'] || '';
     });
   }
 
@@ -62,7 +64,7 @@ export class VerifyActivationCodeComponent implements OnInit {
   verifyEmail() {
     const otp = this.getOtp();
 
-    this.userService.verifyRegistrationOtp(this.email, otp).subscribe({
+    this.userService.verifyRegistrationOtp(this.email,this.otpReqId, otp).subscribe({
       next: (res) => {
         this.router.navigateByUrl('/success',{state:{accNo:res.accountNumber}})
       },

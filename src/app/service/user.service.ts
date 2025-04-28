@@ -60,9 +60,10 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/submitLoanApplication`,payload,{headers:UserService.jsonheaders});
   }
 
-  verifyRegistrationOtp(email: string, otp: string): Observable<any> {
+  verifyRegistrationOtp(email: string,otpReqId:string, otp: string): Observable<any> {
     const params = new HttpParams()
       .set('email', email)
+      .set('otpReqId',otpReqId)
       .set('otp', otp);
       
     return this.http.post<any>(`${this.baseUrl}/verify-activation-code`, {}, { params });
