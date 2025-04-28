@@ -9,6 +9,7 @@ import { UserService } from '../../service/user.service';
   imports:[CommonModule]
 })
 export class DashboardComponent implements OnInit {
+
   constructor(private router: Router) {}
 
   private userService = inject(UserService);
@@ -42,5 +43,12 @@ export class DashboardComponent implements OnInit {
 
   loanApply() {
     this.router.navigate(['/loan-apply']);
+  }
+
+  viewLoans(){
+    this.router.navigate(['/myloans']);
+  }
+  goToTPWD() {
+    this.router.navigate(['/change-transaction-pwd']);
   }
 }

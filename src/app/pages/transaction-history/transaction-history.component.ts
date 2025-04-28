@@ -3,6 +3,9 @@ import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../service/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { ErrorToastComponent } from '../../components/error-toast/error-toast.component';
 
 interface TransactionDTO{
     id?:number,
@@ -29,11 +32,43 @@ interface TransactionResponse{
 })
 export class TransactionHistoryComponent implements OnInit {
   accountNumber: string = '';
-  transactions: TransactionDTO[] = []; // Placeholder for transaction data
+  transactions: TransactionDTO[]  = [];
+  sent = false; // Placeholder for transaction data
   private userService = inject(UserService);
+  myAccountNumbers: string[] = [];
+  private snackBar = inject(MatSnackBar);
+  private router = inject(Router);
+  handleError(errorObj:any){
+    const heading = errorObj.error.serverErrorDescrtiption || 'Error Occurred';
+    const message = errorObj.error.error || 'Something went wrong.';
+
+    this.snackBar.openFromComponent(ErrorToastComponent, {
+      duration: 4500,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      data: {
+        heading,
+        message
+      },
+      panelClass: ['no-default-snackbar-style']
+    });
+  }
   constructor() {}
 
+  goBack(){
+    this.router.navigate(['/dashboard']);
+  }
+
   ngOnInit(): void {
+    this.userService.getAccountNumbers().subscribe({
+      next: (val) =>{
+        this.myAccountNumbers = val as string[];
+      },
+      error: (err) => {
+        console.log(err);
+        this.handleError(err);
+      }
+    })
   }
 
   onSubmit(): void {
@@ -52,10 +87,6 @@ export class TransactionHistoryComponent implements OnInit {
         console.log(err);
       },
     })
-    this.transactions = [
-      { id: 1, accountNumber: 'A10001', type: 'transfer', amount: 500, description: 'Sent to A10003', timestamp: '2025-04-22T10:00' },
-      { id: 2, accountNumber: 'A10001', type: 'deposit', amount: 1000, description: 'Salary deposit', timestamp: '2025-04-21T15:30' },
-      { id: 3, accountNumber: 'A10001', type: 'withdraw', amount: 200, description: 'ATM withdrawal', timestamp: '2025-04-20T18:45' }
-    ];
+    this.sent = true;
   }
 }

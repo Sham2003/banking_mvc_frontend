@@ -2,15 +2,15 @@
     <div class="card shadow-lg p-4 w-100" style="max-width: 700px;">
       <h1 class="text-center text-primary mb-4">Account Details</h1>
   
-      <div *ngIf="account">
-        <p><strong>Account Number:</strong> {{ account.accountNumber }}</p>
-        <p><strong>Name:</strong> {{ account.name }}</p>
-        <p><strong>Email:</strong> {{ account.email }}</p>
-        <p><strong>Mobile:</strong> {{ account.mobileNumber }}</p>
-        <p><strong>DOB:</strong> {{ account.dob }}</p>
-        <p><strong>Account Type:</strong> {{ account.accountType }}</p>
-        <p><strong>Created On:</strong> {{ account.createdOn }}</p>
-        <p><strong>Balance:</strong> ₹{{ account.balance | number:'1.2-2' }}</p>
+      <div *ngIf="accounts[0]">
+        <p><strong>Account Number:</strong> {{ accounts[0].accountNumber }}</p>
+        <p><strong>Name:</strong> {{ accounts[0].name }}</p>
+        <p><strong>Email:</strong> {{ accounts[0].email }}</p>
+        <p><strong>Mobile:</strong> {{ accounts[0].mobileNumber }}</p>
+        <p><strong>DOB:</strong> {{ accounts[0].dob | date:'dd-MM-yyyy' }}</p>
+        <p><strong>Account Type:</strong> {{ accounts[0].accountType }}</p>
+        <p><strong>Created On:</strong> {{ accounts[0].createdOn | date:'dd-MM-yyyy' }}</p>
+        <p><strong>Balance:</strong> ₹{{ accounts[0].balance | number:'1.2-2' }}</p>
       </div>
   
       <div class="text-center mt-4">

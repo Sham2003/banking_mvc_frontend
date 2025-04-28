@@ -6,11 +6,16 @@
       <form (ngSubmit)="onSubmit()" class="mb-4">
         <div class="input-group">
           <label for="accountNumber" class="form-label">Enter Account Number:</label>
-          <input type="text" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" name="accountNumber" required />
+          <!-- <input type="text" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" name="accountNumber" required /> -->
+          <select (change)="this.sent = false" class="form-select" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" [ngModelOptions]="{standalone: true}">
+            <option value="">Select</option>
+            <option *ngFor="let accNo of this.myAccountNumbers" [value]="accNo">{{accNo}}</option>
+          </select>
           <button type="submit" class="btn btn-primary ms-2">View History</button>
         </div>
       </form>
-  
+      
+      <div *ngIf="this.sent">
       <div *ngIf="this.transactions.length > 0; else noTransactions">
         <table class="table table-striped table-bordered">
           <thead>
@@ -35,6 +40,7 @@
           </tbody>
         </table>
       </div>
+    </div>
       
       <ng-template #noTransactions>
         <div class="alert alert-warning text-center">

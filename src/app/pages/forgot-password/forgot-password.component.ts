@@ -34,7 +34,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit() {
     if (this.otpsent) {
-      // Password reset flow
       if (this.passwordForm.valid) {
         const { otp, newPassword, confirmPassword } = this.passwordForm.value;
         

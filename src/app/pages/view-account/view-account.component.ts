@@ -10,16 +10,16 @@ import { UserService } from '../../service/user.service';
   styleUrl: './view-account.component.css'
 })
 export class ViewAccountComponent implements OnInit {
-  account: any;
+  accounts: any[] = [];
 
   private userService = inject(UserService);
 
   constructor(private location: Location) {}
 
   ngOnInit(): void {
-    this.userService.viewAccount(this.userService.getToken()).subscribe({
-      next:(value) => {
-        this.account = value;
+    this.userService.getAccountDetails().subscribe({
+      next:(value:any) => {
+        this.accounts = value;
       },
       error(err) {
         console.log(err);

@@ -16,7 +16,6 @@ export class LoanformComponent {
   loanForm: FormGroup;
 
   formFields = [
-    { id: 'loanId', label: 'Loan ID', type: 'text', icon: 'bi bi-hash', placeholder: 'Enter loan ID' },
     { id: 'noOfDependents', label: 'Number of Dependents', type: 'number', icon: 'bi bi-people-fill', placeholder: 'e.g., 2' },
     { id: 'education', label: 'Education', type: 'text', icon: 'bi bi-mortarboard-fill', placeholder: 'e.g., Graduate' },
     { id: 'selfEmployed', label: 'Self Employed', type: 'text', icon: 'bi bi-briefcase-fill', placeholder: 'Yes or No' },
@@ -31,10 +30,9 @@ export class LoanformComponent {
   ];
   constructor(private fb: FormBuilder, private router: Router) {
     this.loanForm = this.fb.group({
-      loanId: [''],
       noOfDependents: [0, [Validators.min(0)]],
-      education: [''],
-      selfEmployed: [''],
+      education: ['', [Validators.required]],   // ADD Validators.required
+      selfEmployed: ['', [Validators.required]], // ADD Validators.required
       incomeAnnum: [0, [Validators.required]],
       loanAmount: [0, [Validators.required]],
       loanTerm: [0, [Validators.required]],
@@ -72,7 +70,7 @@ export class LoanformComponent {
           console.log(val);
           this.router.navigateByUrl('/loan-status');
           this.router.navigate(['/loan-status'], {
-            state: { loanData: val }
+            state: { loanId: val }
           });
           
         },

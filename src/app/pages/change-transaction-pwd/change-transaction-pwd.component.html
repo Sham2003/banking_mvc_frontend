@@ -1,0 +1,43 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+    <div class="text-center">
+      <h2 class="mb-4 text-primary">Change Transaction Password</h2>
+      <form [formGroup]="this.passwordForm" (ngSubmit)="onSubmit()" class="bg-white p-4 rounded shadow mx-auto" style="max-width: 400px;">
+        
+        <!-- Email Field -->
+        <div *ngIf="!otpsent" class="mb-3">
+            <select class="form-select" id="senderAccountNumber" class="form-control" [(ngModel)]="accountNumber" [ngModelOptions]="{standalone: true}">
+                <option value="">Select</option>
+                <option *ngFor="let accNo of this.myAccountNumbers" [value]="accNo">{{accNo}}</option>
+            </select>
+        </div>
+  
+        <!-- OTP Field (Visible after OTP is sent) -->
+        <div *ngIf="otpsent" class="mb-3">
+          <input type="text" class="form-control" placeholder="Enter OTP" formControlName="otp" required maxlength="6">
+          <div *ngIf="false" class="text-danger">
+            Please enter a valid OTP (6 digits).
+          </div>
+        </div>
+  
+        <!-- New Password Field -->
+        <div *ngIf="otpsent" class="mb-3">
+          <input type="password" class="form-control" placeholder="Enter new password" formControlName="transactionPassword" required>
+          <div *ngIf="false" class="text-danger">
+            Password must be at least 6 characters.
+          </div>
+        </div>
+  
+          <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100">
+          {{ otpsent ? 'Reset Password' : 'Send OTP' }}
+        </button>
+  
+        <!-- Message Display -->
+        <div class="mt-4">
+          <p *ngIf="message" class="text-success fw-bold">{{ message }}</p>
+        </div>
+  
+      </form>
+    </div>
+  </div>
+  

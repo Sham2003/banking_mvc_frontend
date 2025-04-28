@@ -8,7 +8,11 @@
         <label for="senderAccountNumber" class="form-label fw-semibold">
           <i class="bi bi-person-badge me-2"></i>Sender Account Number
         </label>
-        <input type="text" id="senderAccountNumber" class="form-control" formControlName="senderAccountNumber">
+        <!-- <input type="text" id="senderAccountNumber" class="form-control" formControlName="senderAccountNumber"> -->
+        <select class="form-select" id="senderAccountNumber" class="form-control" formControlName="senderAccountNumber">
+            <option value="">Select</option>
+            <option *ngFor="let accNo of this.myAccountNumbers" [value]="accNo">{{accNo}}</option>
+        </select>
         <div class="text-danger small" *ngIf="transferForm.get('senderAccountNumber')?.invalid && transferForm.get('senderAccountNumber')?.touched">
           Valid sender account number is required.
         </div>
@@ -44,6 +48,12 @@
     <div class="text-center mt-4 animate__animated animate__fadeInUp">
       <p class="text-success fw-bold" *ngIf="message">{{ message }}</p>
       <p class="text-info" *ngIf="senderBalance">{{ senderBalance }}</p>
+    </div>
+
+    <div class="mt-4 text-center">
+      <a (click)="goBack()" class="btn btn-primary">
+        <i class="bi bi-arrow-left-circle"></i> Go back to the dashboard
+      </a>
     </div>
   </div>
   

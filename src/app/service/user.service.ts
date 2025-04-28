@@ -38,9 +38,14 @@ export class UserService {
   }
 
 
-  viewAccount(token : string){
-    const params = new HttpParams().set('email',token);
-    return this.http.post(`${this.baseUrl}/view-account`, null,{params});
+  getAccountDetails(){
+    const params = new HttpParams().set('email',this.getToken());
+    return this.http.post(`${this.baseUrl}/accountDetails`, null,{params});
+  }
+
+  getAccountNumbers(){
+    const params = new HttpParams().set('email',this.getToken());
+    return this.http.get(`${this.baseUrl}/accountNumbers`, {params});
   }
 
   getTransactionHistory<T>(accountNumber: string){
@@ -57,7 +62,7 @@ export class UserService {
   }
 
   applyLoan(payload:any){
-    return this.http.post(`${this.baseUrl}/submitLoanApplication`,payload,{headers:UserService.jsonheaders});
+    return this.http.post(`${this.baseUrl}/submitLoanApplication`,{...payload,email:this.userMail},{headers:UserService.jsonheaders,responseType:'text' as 'json'});
   }
 
   verifyRegistrationOtp(email: string,otpReqId:string, otp: string): Observable<any> {
@@ -75,9 +80,36 @@ export class UserService {
     return this.http.post<string>(`${this.baseUrl}/initiatePasswordReset`, {}, { params ,responseType:'text' as 'json'});
   }
 
+  sendTPwdOtp(accountNumber: string){
+    const params = new HttpParams()
+      .set('accountNumber',accountNumber)
+      .set('email', this.getToken());
+    return this.http.post<string>(`${this.baseUrl}/initTransactionPassword`, {}, { params ,responseType:'text' as 'json'});
+  }
+
   // 🔁 Reset password
   resetPassword(payload: { email: string; reqId:string; otp:string ;newPassword: string ; confirmPassword: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/reset-password`, payload,{headers:UserService.jsonheaders});
+  }
+
+  resetTPwd(payload: { accountNumber: string; otpReqId:string; otp:string ;transactionPassword: string ; }): Observable<any> {
+    const params = new HttpParams()
+      .set('accountNumber',payload.accountNumber)
+      .set('email', this.getToken())
+      .set('otpReqId',payload.otpReqId)
+      .set('otp',payload.otp)
+      .set('transactionPassword',payload.transactionPassword);
+    return this.http.post(`${this.baseUrl}/changeTransactionPassword`, {},{params});
+  }
+
+  getLoans(){
+    const params = new HttpParams()
+      .set('email', this.userMail);
+    return this.http.get(`${this.baseUrl}/loans`,{params,headers:UserService.jsonheaders});
+  }
+
+  getLoanData(loanId: string) {
+    return this.http.get(`${this.baseUrl}/loan/${loanId}`,{headers:UserService.jsonheaders});
   }
 
 }

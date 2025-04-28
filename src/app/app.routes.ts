@@ -12,6 +12,8 @@ import { BankTransferComponent } from './pages/bank-transfer/bank-transfer.compo
 import { DepositWithdrawComponent } from './pages/deposit-withdraw/deposit-withdraw.component';
 import { LoanformComponent } from './pages/loanform/loanform.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { MyLoansComponent } from './pages/my-loans/my-loans.component';
+import { ChangeTransactionPwdComponent } from './pages/change-transaction-pwd/change-transaction-pwd.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,6 +21,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'success', component: AccountSuccessComponent },
     { path: 'transaction-history', component: TransactionHistoryComponent },
+    { path: 'change-transaction-pwd', component: ChangeTransactionPwdComponent },
     { path: 'verifyAccount', component: VerifyActivationCodeComponent },
     { path: 'bank-transfer', component: BankTransferComponent },
     { path: 'depo-withdraw', component: DepositWithdrawComponent },
@@ -28,5 +31,6 @@ export const routes: Routes = [
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'loan-apply', component: LoanformComponent },
     { path: 'loan-status', component: LoanResultComponent },
-
+    { path: 'myloans', component: MyLoansComponent },
+    
 ];
