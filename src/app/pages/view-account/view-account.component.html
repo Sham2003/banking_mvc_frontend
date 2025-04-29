@@ -1,44 +1,44 @@
-<div class="container py-5 d-flex justify-content-center">
-  <div class="position-relative w-100" style="max-width: 500px;">
+<div class="container-fluid min-vh-100 d-flex flex-column align-items-center bg-light py-5">
 
-    <div id="accountCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-      <div class="carousel-inner">
+  <!-- Page Title -->
+  <h2 class="fw-bold mb-4">My Accounts</h2>
 
-        <!-- Credit Card Style Slide -->
-        <div class="carousel-item" *ngFor="let account of accounts; let i = index" [class.active]="i === 0">
-          <div class="card shadow-lg p-4 text-white" style="background: linear-gradient(135deg, #4e54c8, #8f94fb); border-radius: 20px;">
-            <div class="card-body animate__animated animate__fadeInRight">
-              <h5 class="card-title mb-3">Account Number: {{ account.accountNumber }}</h5>
-              <h6 class="card-subtitle mb-2">{{ account.name }}</h6>
-              <p class="mb-1"><strong>Email:</strong> {{ account.email }}</p>
-              <p class="mb-1"><strong>Mobile:</strong> {{ account.mobileNumber }}</p>
-              <p class="mb-1"><strong>DOB:</strong> {{ account.dob | date:'dd-MM-yyyy' }}</p>
-              <p class="mb-1"><strong>Type:</strong> {{ account.accountType }}</p>
-              <p class="mb-1"><strong>Created:</strong> {{ account.createdOn | date:'dd-MM-yyyy' }}</p>
-              <h5 class="mt-3">₹{{ account.balance | number:'1.2-2' }}</h5>
-            </div>
-          </div>
-        </div>
+  <!-- Card Container -->
+  <div class="position-relative w-100" style="max-width: 800px;">
 
+    <!-- Card Display (Single Card based on currentIndex) -->
+    <div *ngIf="accounts.length > 0" class="card p-5 text-white shadow-lg mx-auto"
+      style="min-height: 400px; border-radius: 24px; background: linear-gradient(135deg, #6a11cb, #2575fc);">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Account Number: {{ accounts[currentIndex].accountNumber }}</h5>
+        <h6 class="card-subtitle mb-3">{{ accounts[currentIndex].name }}</h6>
+        <p><strong>Email:</strong> {{ accounts[currentIndex].email }}</p>
+        <p><strong>Mobile:</strong> {{ accounts[currentIndex].mobileNumber }}</p>
+        <p><strong>DOB:</strong> {{ accounts[currentIndex].dob | date: 'dd-MM-yyyy' }}</p>
+        <p><strong>Type:</strong> {{ accounts[currentIndex].accountType }}</p>
+        <p><strong>Created:</strong> {{ accounts[currentIndex].createdOn | date: 'dd-MM-yyyy' }}</p>
+        <h4 class="mt-4">₹{{ accounts[currentIndex].balance | number: '1.2-2' }}</h4>
       </div>
-      
-
-      <!-- Prev & Next Buttons positioned on left and right -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#accountCarousel" data-bs-slide="prev" style="width: 5%;">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#accountCarousel" data-bs-slide="next" style="width: 5%;">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-
     </div>
 
-    <!-- Back to Dashboard -->
-    <div class="text-center mt-4">
-      <button class="btn btn-primary" (click)="goBack()">
-        <i class="bi bi-arrow-left"></i> Back to Dashboard
+    <!-- Navigation Buttons -->
+    <div class="d-flex justify-content-between mt-3 px-5">
+      <button class="btn btn-outline-dark" (click)="prev()" [disabled]="currentIndex === 0">
+        <i class="bi bi-arrow-left"></i> Previous
+      </button>
+
+      <button class="btn btn-outline-dark" (click)="next()" [disabled]="currentIndex === accounts.length - 1">
+        Next <i class="bi bi-arrow-right"></i>
       </button>
     </div>
 
   </div>
+
+  <!-- Back Button -->
+  <div class="mt-5">
+    <button class="btn btn-outline-primary" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </button>
+  </div>
+
 </div>
