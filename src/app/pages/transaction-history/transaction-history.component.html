@@ -1,24 +1,33 @@
-<!-- transaction-history.component.html -->
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card shadow-lg p-4" style="max-width: 900px; width: 100%;">
-      <h2 class="text-center text-primary mb-4">Transaction History</h2>
-      
-      <form (ngSubmit)="onSubmit()" class="mb-4">
-        <div class="input-group">
-          <label for="accountNumber" class="form-label">Enter Account Number:</label>
-          <!-- <input type="text" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" name="accountNumber" required /> -->
-          <select (change)="this.sent = false" class="form-select" id="accountNumber" class="form-control" [(ngModel)]="accountNumber" [ngModelOptions]="{standalone: true}">
+<div class="container d-flex flex-column align-items-center min-vh-100 bg-light py-5">
+
+  <!-- Card Section -->
+  <div class="card shadow-lg p-4 w-100" style="max-width: 900px;">
+    
+    <!-- Page Title -->
+    <h2 class="text-center text-primary mb-4">Transaction History</h2>
+    
+    <!-- Account Selector & View Button -->
+    <form (ngSubmit)="onSubmit()" class="mb-4">
+      <div class="row g-2 align-items-center">
+        <div class="col-md-9">
+          <label for="accountNumber" class="form-label mb-1">Select Account Number</label>
+          <select (change)="this.sent = false" class="form-select" id="accountNumber"
+                  [(ngModel)]="accountNumber" [ngModelOptions]="{standalone: true}">
             <option value="">Select</option>
-            <option *ngFor="let accNo of this.myAccountNumbers" [value]="accNo">{{accNo}}</option>
+            <option *ngFor="let accNo of myAccountNumbers" [value]="accNo">{{ accNo }}</option>
           </select>
-          <button type="submit" class="btn btn-primary ms-2">View History</button>
         </div>
-      </form>
-      
-      <div *ngIf="this.sent">
-      <div *ngIf="this.transactions.length > 0; else noTransactions">
+        <div class="col-md-3 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary w-100">View History</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Transaction Table -->
+    <div *ngIf="sent">
+      <div *ngIf="transactions.length > 0; else noTransactions">
         <table class="table table-striped table-bordered">
-          <thead>
+          <thead class="table-primary">
             <tr>
               <th>ID</th>
               <th>Account</th>
@@ -41,12 +50,20 @@
         </table>
       </div>
     </div>
-      
-      <ng-template #noTransactions>
-        <div class="alert alert-warning text-center">
-          No transactions found for this account.
-        </div>
-      </ng-template>
-    </div>
+
+    <ng-template #noTransactions>
+      <div class="alert alert-warning text-center">
+        No transactions found for this account.
+      </div>
+    </ng-template>
+
   </div>
-  
+
+  <!-- BACK Button (outside the card, bottom center) -->
+  <div class="mt-4">
+    <button class="btn btn-outline-primary" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </button>
+  </div>
+
+</div>

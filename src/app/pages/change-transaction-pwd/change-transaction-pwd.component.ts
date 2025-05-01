@@ -29,6 +29,10 @@ export class ChangeTransactionPwdComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.userService.isSessionInvalid()){
+      this.router.navigate(['/status/expired']);
+      return;
+    }
     this.userService.getAccountNumbers().subscribe({
       next: (val) =>{
         this.myAccountNumbers = val as string[];
@@ -72,7 +76,7 @@ export class ChangeTransactionPwdComponent implements OnInit {
           
               
             this.userService.resetTPwd(payload).subscribe({
-              next: (res) => {
+              next: () => {
                 this.snackBar.openFromComponent(ErrorToastComponent, {
                       duration: 4500,
                       horizontalPosition: 'end',

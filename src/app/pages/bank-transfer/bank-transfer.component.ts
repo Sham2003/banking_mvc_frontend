@@ -5,6 +5,10 @@ import { UserService } from '../../service/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorToastComponent } from '../../components/error-toast/error-toast.component';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { TransactionPasswordDialogComponent } from '../../components/transaction-password-dialog.component';
+import { TransactionRequest } from '../../dtos/RegisterResponseDTOs';
+
 
 @Component({
   selector: 'app-bank-transfer',
@@ -26,13 +30,13 @@ export class BankTransferComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if(this.userService.getToken() == null || this.userService.getToken().length < 4){
-      alert("Please login first");
-      this.router.navigate(['/login']);
+    if(this.userService.isSessionInvalid()){
+        this.router.navigate(['/status/expired']);
+        return;
     }
     this.userService.getAccountNumbers().subscribe({
       next: (val) =>{
-        this.myAccountNumbers = val as string[];
+        this.myAccountNumbers = val;
       },
       error: (err) => {
         console.log(err);
@@ -43,6 +47,36 @@ export class BankTransferComponent implements OnInit{
 
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
+
+  onSubmit() {
+    if (this.transferForm.invalid) {
+      this.message = 'Please fix the errors in the form.';
+      this.senderBalance = '';
+      return;
+    }
+
+    this.dialog.open(TransactionPasswordDialogComponent).afterClosed().subscribe((password: string) => {
+      if (!password) return;
+
+      const transferData:TransactionRequest = {
+        ...this.transferForm.value,
+        transactionPassword: password
+      };
+
+      this.userService.initiateTransfer(transferData).subscribe({
+        next: (value) => {
+          this.message = `Successfully transferred ₹${transferData.amount} from A/C ${transferData.senderAccountNumber} to A/C ${transferData.receiverAccountNumber}`;
+          this.senderBalance = `Balance: ₹${value.senderBalance}`;
+        },
+        error: (err) => {
+          this.handleError(err);
+        }
+      });
+    });
+  }
+
+
   handleError(errorObj:any){
     const heading = errorObj.error.serverErrorDescrtiption || 'Error Occurred';
     const message = errorObj.error.error || 'Something went wrong.';
@@ -63,26 +97,26 @@ export class BankTransferComponent implements OnInit{
     this.router.navigate(['/dashboard'])
   }
 
-  onSubmit() {
-    if (this.transferForm.valid) {
-      const { senderAccountNumber, receiverAccountNumber, amount } = this.transferForm.value;
-      console.log('Transfer Data:', this.transferForm.value);
-      this.userService.initiateTransfer(this.transferForm.value).subscribe({
-        next: (value:any) => {
-          console.log(value);
-          this.message = `Successfully transferred ₹${amount} from A/C ${senderAccountNumber} to A/C ${receiverAccountNumber}`;
-          this.senderBalance = `Balance: ₹${value.senderBalance}`;
-        },  
-        error: (err) => {
-          console.log(err);
-          this.handleError(err);
-        }
-      })
+  // onSubmit() {
+  //   if (this.transferForm.valid) {
+  //     const { senderAccountNumber, receiverAccountNumber, amount } = this.transferForm.value;
+  //     console.log('Transfer Data:', this.transferForm.value);
+  //     this.userService.initiateTransfer(this.transferForm.value).subscribe({
+  //       next: (value) => {
+  //         console.log(value);
+  //         this.message = `Successfully transferred ₹${amount} from A/C ${senderAccountNumber} to A/C ${receiverAccountNumber}`;
+  //         this.senderBalance = `Balance: ₹${value.senderBalance}`;
+  //       },  
+  //       error: (err) => {
+  //         console.log(err);
+  //         this.handleError(err);
+  //       }
+  //     })
       
       
-    } else {
-      this.message = 'Please fix the errors in the form.';
-      this.senderBalance = '';
-    }
-  }
+  //   } else {
+  //     this.message = 'Please fix the errors in the form.';
+  //     this.senderBalance = '';
+  //   }
+  // }
 }

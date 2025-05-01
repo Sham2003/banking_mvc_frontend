@@ -15,11 +15,9 @@ export class DashboardComponent implements OnInit {
   private userService = inject(UserService);
 
   ngOnInit(): void {
-    if(this.userService.getToken() == null || this.userService.getToken().length < 4){
-      alert("Please login first");
-      this.router.navigate(['/login']);
+    if(this.userService.isSessionInvalid()){
+      this.router.navigate(['/status/expired']);
     }
-    console.log("Current email "+this.userService.getToken());
   }
 
   createAccount(){
@@ -50,5 +48,10 @@ export class DashboardComponent implements OnInit {
   }
   goToTPWD() {
     this.router.navigate(['/change-transaction-pwd']);
+  }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['/status/logout']);
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,13 +15,19 @@ import { ErrorToastComponent } from '../../components/error-toast/error-toast.co
   templateUrl: './another-act.component.html',
   styleUrl: './another-act.component.css'
 })
-export class CreateAnotherAccountComponent {
+export class CreateAnotherAccountComponent implements OnInit {
   accountForm: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.accountForm = this.fb.group({
       accountType: ['', Validators.required]
     });
+  }
+
+  ngOnInit(): void {
+    if(this.userService.isSessionInvalid()){
+      this.router.navigate(['/status/expired']);
+    }
   }
 
   private userService = inject(UserService);

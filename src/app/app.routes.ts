@@ -15,6 +15,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { MyLoansComponent } from './pages/my-loans/my-loans.component';
 import { ChangeTransactionPwdComponent } from './pages/change-transaction-pwd/change-transaction-pwd.component';
 import { CreateAnotherAccountComponent } from './pages/another-act/another-act.component';
+import { LogoutStatusComponent } from './pages/logout-status/logout-status.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -34,5 +35,5 @@ export const routes: Routes = [
     { path: 'loan-apply', component: LoanformComponent },
     { path: 'loan-status', component: LoanResultComponent },
     { path: 'myloans', component: MyLoansComponent },
-    
+    { path: 'status/:type',component:LogoutStatusComponent}
 ];

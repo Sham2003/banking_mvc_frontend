@@ -41,7 +41,7 @@ export class LoginComponent {
     this.userService.login(this.loginForm.value as {email:string, password: string}).subscribe(
       {
         next: (data) => {
-          this.userService.setToken(data.email);
+          this.userService.setToken(data);
           this.snackBar.dismiss();
           this.router.navigate(['/dashboard']);
         },

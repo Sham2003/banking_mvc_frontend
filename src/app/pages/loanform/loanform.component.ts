@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { UserService } from '../../service/user.service';
   templateUrl: './loanform.component.html',
   styleUrl: './loanform.component.css'
 })
-export class LoanformComponent {
+export class LoanformComponent implements OnInit {
   loanForm: FormGroup;
 
   formFields = [
@@ -45,6 +45,12 @@ export class LoanformComponent {
   }
   private userService = inject(UserService);
   private snackBar = inject(MatSnackBar);
+
+  ngOnInit(): void {
+    if(this.userService.isSessionInvalid()){
+      this.router.navigate(['/status/expired']);
+    }
+  }
 
   handleError(errorObj:any){
     const heading = errorObj.error.serverErrorDescrtiption || 'Error Occurred';
@@ -90,6 +96,5 @@ export class LoanformComponent {
         panelClass: ['no-default-snackbar-style']
       });
     }
-    //this.router.navigate(['/loan-status'])
   }
 }

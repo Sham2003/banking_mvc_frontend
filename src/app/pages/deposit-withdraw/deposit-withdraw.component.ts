@@ -28,10 +28,10 @@ printChange() {
   private snackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
-    if(this.userService.getToken() == null || this.userService.getToken().length < 4){
-      alert("Please login first");
-      this.router.navigate(['/login']);
-    }
+      if(this.userService.isSessionInvalid()){
+        this.router.navigate(['/status/expired']);
+        return;
+      }
     this.userService.getAccountNumbers().subscribe({
       next: (val) =>{
         this.myAccountNumbers = val as string[];
@@ -72,9 +72,9 @@ printChange() {
 
     this.userService.depoWithdraw({
           accountNumber:this.accountNumber,
-          transactionType:this.transactionType,
+          transactionType:this.transactionType as 'deposit' | 'withdraw',
           amount:this.amount}).subscribe({
-            next:(val) => {
+            next:() => {
               this.message = `Transaction of ₹${this.amount} (${this.transactionType}) was successful for A/C ${this.accountNumber}.`;
               this.error = '';
             },

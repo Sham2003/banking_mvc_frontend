@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../service/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorToastComponent } from '../../components/error-toast/error-toast.component';
+import { RegisterRequestDTO } from '../../dtos/RegisterResponseDTOs';
 
 @Component({
   selector: 'app-register',
@@ -43,13 +44,24 @@ export class RegisterComponent {
   }
 
   submitRegister(){
-    this.userService.register(this.registerForm.value).subscribe(
+    this.checkFormValidity(this.registerForm);
+    const raw = this.registerForm.getRawValue();
+
+    const userData: RegisterRequestDTO = {
+      name: raw.name ?? '',
+      email: raw.email ?? '',
+      mobileNumber: raw.mobileNumber ?? '',
+      dob: raw.dob ?? '',
+      accountType: raw.accountType as 'savings'|'current' ?? '',
+      password: raw.password ?? '',
+      confirmPassword: raw.confirmPassword ?? '',
+    };
+
+    this.userService.register(userData).subscribe(
       {
         next:(value) => {
-          if(value.email){
             this.snackBar.dismiss();
             this.router.navigate(['/verifyAccount'], { queryParams: { email: value.email, otpReqId: value.otpReqId } });
-          }
         },
         error: (err) => {
           console.log(err);
@@ -58,5 +70,43 @@ export class RegisterComponent {
       }
     );
   }
+
+  checkFormValidity(form: FormGroup): boolean {
+    if (form.valid) {
+      console.log('✅ Form is valid');
+      return true;
+    }
+  
+    console.log('❌ Form is invalid. Errors:');
+  
+    Object.keys(form.controls).forEach((key) => {
+      const control = form.get(key);
+  
+      if (control && control.invalid) {
+        const errors = control.errors;
+        console.log(`🔹 ${key} has errors:`);
+  
+        if (errors?.['required']) {
+          console.log(`   - ${key} is required.`);
+        }
+        if (errors?.['email']) {
+          console.log(`   - ${key} must be a valid email.`);
+        }
+        if (errors?.['maxlength']) {
+          console.log(`   - ${key} exceeds max length.`);
+        }
+        if (errors?.['minlength']) {
+          console.log(`   - ${key} is too short.`);
+        }
+        if (errors?.['pattern']) {
+          console.log(`   - ${key} has an invalid format.`);
+        }
+        // Add other validations if needed
+      }
+    });
+  
+    return false;
+  }
+  
 
 }

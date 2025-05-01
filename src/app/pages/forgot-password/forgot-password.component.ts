@@ -45,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
             newPassword:newPassword,
             confirmPassword:confirmPassword
           };
-          this.userService.resetPassword(payload).subscribe({
+          this.userService.verPwd(payload).subscribe({
             next: (res) => {
               this.snackBar.openFromComponent(ErrorToastComponent, {
                     duration: 4500,
@@ -71,7 +71,7 @@ export class ForgotPasswordComponent implements OnInit {
       }
     } else {
 
-      this.userService.sendForgotOtp(this.email).subscribe({
+      this.userService.resetPwdInit(this.email).subscribe({
         next: (res) => {
           console.log(res);
           this.otpreqid = res;

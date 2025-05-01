@@ -9,12 +9,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let loanId of loans">
-            <td>{{ loanId }}</td>
+          <tr *ngFor="let l of loans">
+            <td>{{ l.loanId }}</td>
             <td>
               <button 
                 class="btn btn-primary btn-sm d-flex align-items-end gap-1"
-                (click)="viewApplication(loanId)">
+                (click)="viewApplication(l.loanId)">
                 <i class="bi bi-eye-fill"></i> View
               </button>
             </td>
