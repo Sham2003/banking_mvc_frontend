@@ -58,6 +58,7 @@ export class UserService {
 		this.BEARER_TOKEN = data.token;
 		this.userMail = data.email;
 		this.expiresAt = data.expiresAt
+		console.log(this.BEARER_TOKEN);
 		localStorage.setItem("userMail",this.userMail);
 		localStorage.setItem("bearerToken",this.BEARER_TOKEN);
 		localStorage.setItem("expiresAt",this.expiresAt);
